@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Currency">
+    <output-path>$PROJECT_DIR$/out/artifacts/Currency</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Currency_exchange_office" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="Currency_exchange_office/web/Web" />
+    </root>
+  </artifact>
+</component>
