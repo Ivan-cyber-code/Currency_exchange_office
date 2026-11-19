@@ -3,10 +3,7 @@ package dao;
 import model.Currency;
 import util.ConnectionManager;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,5 +24,21 @@ public class CurrencyDao {
         }
         return currencies;
     }
-}
 
+    public Currency findCurrencyCode(String currenceCode) {
+        String sql = "select * from currency_exchange.public.currencies c where c.code = ?";
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        ) {
+            preparedStatement.setString(1, currenceCode);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                Currency currency = new Currency(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
+                return currency;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        throw new RuntimeException();
+    }
+}

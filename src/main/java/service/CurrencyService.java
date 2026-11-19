@@ -11,4 +11,8 @@ public class CurrencyService {
     public List<Currency> getAllCurrencies(){
         return currencyDao.findAll();
     }
+
+    public Currency getCurrencyCode(String CurrencyCode){
+        return currencyDao.findCurrencyCode(CurrencyCode);
+    }
 }
