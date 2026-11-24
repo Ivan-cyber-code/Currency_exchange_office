@@ -1,5 +1,6 @@
 package dao;
 
+import exeption.CurrencyNotFoundException;
 import model.Currency;
 import util.ConnectionManager;
 
@@ -32,13 +33,32 @@ public class CurrencyDao {
         ) {
             preparedStatement.setString(1, currenceCode);
             ResultSet resultSet = preparedStatement.executeQuery();
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 Currency currency = new Currency(resultSet.getInt(1), resultSet.getString(2), resultSet.getString(3), resultSet.getString(4));
                 return currency;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        throw new RuntimeException();
+        throw new CurrencyNotFoundException();
+    }
+
+    public Currency insertCurrency(Currency currency) throws SQLException {
+        Currency currencyResult = null;
+        String sql = "insert into currency_exchange.public.currencies (code, fullname, sign) values (?,?,?)";
+        try (Connection connection = ConnectionManager.open();
+             PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            preparedStatement.setString(1, currency.getCode());
+            preparedStatement.setString(2, currency.getFullName());
+            preparedStatement.setString(3, currency.getSign());
+            preparedStatement.executeUpdate();
+            ResultSet newCurrency = preparedStatement.getGeneratedKeys();
+            if (newCurrency.next()) {
+                currencyResult = new Currency(newCurrency.getInt(1), newCurrency.getString(2), newCurrency.getString(3), newCurrency.getString(4));
+            }
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+        return currencyResult;
     }
 }

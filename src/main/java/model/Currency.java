@@ -37,7 +37,7 @@ public class Currency {
                 "name" : "%s",
                 "code" : "%s",
                 sign : "%s"
-                }""", getId(),getFullName(),getCode(),getSign());
+                }""", getId(), getFullName(), getCode(), getSign());
     }
 }
 
