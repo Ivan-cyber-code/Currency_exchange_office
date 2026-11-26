@@ -1,10 +1,5 @@
 package dao;
 
-import model.Currency;
-
-import java.sql.SQLException;
-import java.util.List;
-
 public class CurrencyDaoTest {
     public static void main(String[] args) {
         CurrencyDao currencyDao = new CurrencyDao();
@@ -18,6 +13,6 @@ public class CurrencyDaoTest {
 //        } catch (SQLException e) {
 //            System.out.println("Error: invalid data for insertion into the table");
 //        }
-        System.out.println(currencyDao.findCurrencyCode("CAr"));
+        System.out.println(currencyDao.getCurrencyCode("CAr"));
     }
 }

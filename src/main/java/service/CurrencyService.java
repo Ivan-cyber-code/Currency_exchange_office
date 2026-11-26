@@ -12,16 +12,16 @@ public class CurrencyService {
     CurrencyDao currencyDao = new CurrencyDao();
 
     public List<Currency> getAllCurrencies() {
-        return currencyDao.findAll();
+        return currencyDao.getAll();
     }
 
     public Currency getCurrencyCode(String CurrencyCode) {
-        return currencyDao.findCurrencyCode(CurrencyCode);
+        return currencyDao.getCurrencyCode(CurrencyCode);
     }
 
     public Currency insertCurrency(Currency currency) throws SQLException {
         try {
-            currencyDao.findCurrencyCode(currency.getCode());
+            currencyDao.getCurrencyCode(currency.getCode());
         } catch (CurrencyNotFoundException e) {
             Currency currencyResoult = currencyDao.insertCurrency(currency);
             return currencyResoult;
